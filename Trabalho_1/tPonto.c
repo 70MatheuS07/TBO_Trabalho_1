@@ -19,7 +19,9 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao)
   char *id = malloc(sizeof(char) * 201);
 
   fscanf(f, "%[^,],", id);
-  printf("%s\n", id);
+  p->id = id;
+
+  //printf("%s\n", id);
   double num;
   char c = 'x';
 
@@ -27,7 +29,7 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao)
   {
     fscanf(f, "%lf%c", &num, &c);
     p->m[i] = num;
-    printf("%.14lf%c", p->m[i], c);
+    //printf("%.14lf%c", p->m[i], c);
   }
 
   return p;
