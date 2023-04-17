@@ -8,6 +8,9 @@
 
 typedef struct Aresta tAresta;
 
-
+tAresta** CriaVetorArestas(int qtdV);
+tAresta*CriaAresta();
+void PreencheVetArestas(tAresta**VetA, tPonto**VetP, int qtdV, int dim);
+void ImprimirVetorArestas(tAresta**VetA, int qtdV);
 
 #endif

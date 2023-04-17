@@ -1,5 +1,5 @@
 #include "tPonto.h"
-
+#include <math.h>
 struct Ponto
 {
   char *id;  // Identificador.
@@ -22,7 +22,7 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao)
   printf("%s\n", id);
   double num;
   char c = 'x';
-
+  p->id=id;
   for (int i = 0; c != '\n'; i++)
   {
     fscanf(f, "%lf%c", &num, &c);
@@ -41,4 +41,17 @@ void ImprimePonto(tPonto *p, int dimensao)
   {
     printf(",%.14lf\n", p->m[i]);
   }
+}
+
+void ImprimeIDPonto(tPonto *p){
+  printf("%s ", p->id);
+}
+
+double CalculaDistPontos(tPonto*p1, tPonto*p2,int dimensao){
+    double dist = 0;
+    for(int i = 0; i < dimensao;i++){
+      dist+=pow((p1->m[i] - p2->m[i]),2);
+    }
+    dist=sqrt(dist);
+    return dist;
 }

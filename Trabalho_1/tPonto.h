@@ -11,4 +11,10 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao);
 
 void ImprimePonto(tPonto *p, int dimensao);
 
+void ImprimeIDPonto(tPonto *p);
+
+double CalculaDistPontos(tPonto*p1, tPonto*p2,int dimensao);
+
+double CalculaDistPontos(tPonto*p1, tPonto*p2,int dimensao);
+
 #endif
