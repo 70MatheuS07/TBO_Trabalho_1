@@ -12,7 +12,7 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao)
   {
     return NULL;
   }
-  
+
   tPonto *p = malloc(sizeof(tPonto));
   p->m = malloc(sizeof(double) * dimensao);
 
@@ -21,15 +21,15 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao)
   fscanf(f, "%[^,],", id);
   p->id = id;
 
-  //printf("%s\n", id);
+  // printf("%s\n", id);
   double num;
   char c = 'x';
-  p->id=id;
+  p->id = id;
   for (int i = 0; c != '\n'; i++)
   {
     fscanf(f, "%lf%c", &num, &c);
     p->m[i] = num;
-    //printf("%.14lf%c", p->m[i], c);
+    // printf("%.14lf%c", p->m[i], c);
   }
 
   return p;
@@ -41,19 +41,42 @@ void ImprimePonto(tPonto *p, int dimensao)
 
   for (int i = 0; i < dimensao; i++)
   {
-    printf(",%.14lf\n", p->m[i]);
+    printf(",%.14lf", p->m[i]);
   }
+
+  printf("\n");
 }
 
-void ImprimeIDPonto(tPonto *p){
+void ImprimeIDPonto(tPonto *p)
+{
   printf("%s ", p->id);
 }
 
-double CalculaDistPontos(tPonto*p1, tPonto*p2,int dimensao){
-    double dist = 0;
-    for(int i = 0; i < dimensao;i++){
-      dist+=pow((p1->m[i] - p2->m[i]),2);
-    }
-    dist=sqrt(dist);
-    return dist;
+double CalculaDistPontos(tPonto *p1, tPonto *p2, int dimensao)
+{
+  double dist = 0;
+  for (int i = 0; i < dimensao; i++)
+  {
+    dist += pow((p1->m[i] - p2->m[i]), 2);
+  }
+  dist = sqrt(dist);
+  return dist;
+}
+
+void LiberaVetPontos(tPonto **p, int qtdP)
+{
+  for (int i = 0; i < qtdP; i++)
+  {
+    LiberaPonto(p[i]);
+  }
+
+  free(p);
+}
+
+void LiberaPonto(tPonto *p)
+{
+  free(p->id);
+  free(p->m);
+
+  free(p);
 }
