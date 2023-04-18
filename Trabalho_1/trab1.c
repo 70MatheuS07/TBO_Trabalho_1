@@ -43,7 +43,9 @@ int main(int argc, char *argv[])
   }
 
   PreencheVetArestas(arestas,pontos, qtd_linhas, dimensao);
+  OrdenaVetArestas(arestas,qtd_linhas);
   ImprimirVetorArestas(arestas, qtd_linhas);
+  
   fclose(f);
   free(arq_entrada);
   free(arq_saida);

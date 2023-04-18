@@ -53,3 +53,19 @@ void LiberaVetArestas(tAresta**VetA, int qtdV){
     }
     free(VetA);
 }
+
+void OrdenaVetArestas(tAresta**VetA, int qtdV){
+    int tam=(qtdV*(qtdV-1))/2;
+    qsort(VetA, tam, sizeof(tAresta*), comparaDistancia);
+}
+
+int comparaDistancia(const void*item1, const void*item2){
+    const tAresta* A1= *(const tAresta**)item1;
+    const tAresta* A2= *(const tAresta**)item2;
+
+    if(A1->dist>A2->dist) return 1;
+    
+    else if(A1->dist<A2->dist) return -1;
+
+    return 0;
+}
