@@ -1,5 +1,6 @@
 #include "Arquivo.h"
 #include "tPonto.h"
+#include "tAresta.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,11 +20,13 @@ int main(int argc, char *argv[])
   tPonto **pontos = malloc(sizeof(tPonto *) * qtd_linhas);
   tPonto *p;
 
+  tAresta **arestas=CriaVetorArestas(qtd_linhas);
+
   FILE *f = fopen(arq_entrada, "r");
 
   int i = 0;
 
-  while (1)
+  while (i<qtd_linhas)
   {
     p = LehPontoArquivo(f, dimensao);
 
@@ -39,6 +42,10 @@ int main(int argc, char *argv[])
     i++;
   }
 
+  PreencheVetArestas(arestas,pontos, qtd_linhas, dimensao);
+  OrdenaVetArestas(arestas,qtd_linhas);
+  ImprimirVetorArestas(arestas, qtd_linhas);
+  
   fclose(f);
   free(arq_entrada);
   free(arq_saida);
