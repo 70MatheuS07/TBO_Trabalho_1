@@ -46,16 +46,20 @@ int main(int argc, char *argv[])
 
   PreencheVetArestas(arestas, pontos, qtd_linhas, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-  ImprimirVetorArestas(arestas, qtdArestas);
+  // ImprimirVetorArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
+  tAresta **mst = AlgoritmoKruskal(pontos, qtd_linhas, arestas, qtdArestas);
+
+  ImprimirVetorArestas(mst, qtd_linhas - 1);
 
   fclose(f);
   free(arq_entrada);
   free(arq_saida);
+  free(mst);
 
-  //LiberaVetPontos(pontos, qtd_linhas);
-  //LiberaVetArestas(arestas,qtdArestas);
+  LiberaVetPontos(pontos, qtd_linhas);
+  LiberaVetArestas(arestas, qtdArestas);
 
   return 0;
 }

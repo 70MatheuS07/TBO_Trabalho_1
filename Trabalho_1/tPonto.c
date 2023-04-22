@@ -80,3 +80,8 @@ void LiberaPonto(tPonto *p)
 
   free(p);
 }
+
+char *RetornaNomePonto(tPonto *p)
+{
+  return p->id;
+}

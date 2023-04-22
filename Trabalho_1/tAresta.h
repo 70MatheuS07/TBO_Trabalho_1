@@ -22,6 +22,10 @@ int comparaDistancia(const void *item1, const void *item2);
 
 void LiberaVetArestas(tAresta **VetA, int qtdA);
 
-tAresta **AlgoritmoKruskal(tAresta **a, int qtdA);
+tAresta **AlgoritmoKruskal(tPonto **p,int qtdV, tAresta **a, int qtdA);
+
+void PreencheVetor(int *vet, int qtdV);
+
+void ConfereLigacoes(int *vet, int qtdV, int po, int pd);
 
 #endif

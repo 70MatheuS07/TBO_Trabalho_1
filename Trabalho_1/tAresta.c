@@ -6,8 +6,8 @@
 struct Aresta
 {
     double dist; // Distancia entre os pontos.
-    tPonto *po;  // Ponto origem.
-    tPonto *pd;  // Ponto destino.
+    int po;      // Ponto origem.
+    int pd;      // Ponto destino.
 };
 
 tAresta **CriaVetorArestas(int qtdA)
@@ -31,9 +31,9 @@ void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdV, int dim)
         for (int j = i + 1; j < qtdV; j++, k++)
         {
             VetA[k] = CriaAresta();
-            VetA[k]->po = VetP[i];
-            VetA[k]->pd = VetP[j];
-            VetA[k]->dist = CalculaDistPontos(VetA[k]->po, VetA[k]->pd, dim);
+            VetA[k]->po = i;
+            VetA[k]->pd = j;
+            VetA[k]->dist = CalculaDistPontos(VetP[VetA[k]->po], VetP[VetA[k]->pd], dim);
         }
     }
 }
@@ -78,10 +78,48 @@ int comparaDistancia(const void *item1, const void *item2)
     return 0;
 }
 
-tAresta **AlgoritmoKruskal(tAresta **a, int qtdA)
+tAresta **AlgoritmoKruskal(tPonto **p, int qtdV, tAresta **a, int qtdA)
 {
+    tAresta **result = malloc(sizeof(tAresta *) * qtdV - 1);
+    int *vet = malloc(sizeof(int) * qtdV);
+    PreencheVetor(vet, qtdV);
+    int num = 0;
     for (int i = 0; i < qtdA; i++)
     {
-        
+        if (num == qtdV - 1)
+        {
+            break;
+        }
+
+        if (vet[a[i]->po] != vet[a[i]->pd])
+        {
+            ConfereLigacoes(vet, qtdV, a[i]->po, a[i]->pd);
+            result[num] = a[i];
+            num++;
+        }
+    }
+
+    free(vet);
+
+    return result;
+}
+
+void PreencheVetor(int *vet, int qtdV)
+{
+    for (int i = 0; i < qtdV; i++)
+    {
+        vet[i] = i;
     }
 }
+
+void ConfereLigacoes(int *vet, int qtdV, int po, int pd)
+{
+    for (int i = 0; i < qtdV; i++)
+    {
+        if (vet[i] == pd)
+        {
+            vet[i] = po;
+        }
+    }
+}
+

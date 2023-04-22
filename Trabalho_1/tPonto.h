@@ -21,4 +21,6 @@ void LiberaVetPontos(tPonto **p, int qtdP);
 
 void LiberaPonto(tPonto *p);
 
+char *RetornaNomePonto(tPonto *p);
+
 #endif
