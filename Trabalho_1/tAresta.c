@@ -43,8 +43,8 @@ void ImprimirVetorArestas(tAresta **VetA, int qtdA)
 {
     for (int i = 0; i < qtdA; i++)
     {
-        // ImprimeIDPonto(VetA[i]->po);
-        // ImprimeIDPonto(VetA[i]->pd);
+         printf("%d ",(VetA[i]->po));
+         printf("%d ",(VetA[i]->pd));
         printf("%.14lf", VetA[i]->dist);
         printf("\n");
     }
@@ -93,7 +93,7 @@ tAresta **AlgoritmoKruskal(tPonto **p, int qtdV, tAresta **a, int qtdA)
 
         if (vet[a[i]->po] != vet[a[i]->pd])
         {
-            ConfereLigacoes(vet, qtdV, a[i]->po, a[i]->pd);
+            ConfereLigacoes(vet, qtdV, vet[a[i]->po], vet[a[i]->pd]);
             result[num] = a[i];
             num++;
         }

@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
   PreencheVetArestas(arestas, pontos, qtd_linhas, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-  // ImprimirVetorArestas(arestas, qtdArestas);
+   ImprimirVetorArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
   tAresta **mst = AlgoritmoKruskal(pontos, qtd_linhas, arestas, qtdArestas);
