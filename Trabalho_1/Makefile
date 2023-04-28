@@ -2,7 +2,7 @@ CC = gcc -g
 LDLIBS = -lm
 
 # Arquivos fonte
-SRCS = trab1.c Arquivo.c tPonto.c tAresta.c
+SRCS = trab1.c Arquivo.c tPonto.c tAresta.c UF.c
 
 # Arquivos objeto correspondentes
 OBJS = $(SRCS:.c=.o)

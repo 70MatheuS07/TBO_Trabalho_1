@@ -23,4 +23,8 @@ void LiberaPonto(tPonto *p);
 
 char *RetornaNomePonto(tPonto *p);
 
+void OrdenaVetPontos(tPonto **p, int qtdP);
+
+int ComparaNomes(const void *item1, const void *item2);
+
 #endif
