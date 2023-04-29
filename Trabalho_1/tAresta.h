@@ -7,7 +7,7 @@
 #include <string.h>
 
 typedef struct Aresta tAresta;
-
+typedef struct Grupo tGrupo;
 tAresta **CriaVetorArestas(int qtdA);
 
 tAresta *CriaAresta();
@@ -22,6 +22,6 @@ int comparaDistancia(const void *item1, const void *item2);
 
 void LiberaVetArestas(tAresta **VetA, int qtdA);
 
-int *AlgoritmoKruskal(tPonto **p, int qtdV, tAresta **a, int qtdA);
+int *AlgoritmoKruskal( int qtdP, tAresta **a, int qtdGrupos);
 
 #endif

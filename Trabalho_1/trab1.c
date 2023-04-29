@@ -48,10 +48,10 @@ int main(int argc, char *argv[]) {
 
   PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-  // ImprimirVetorArestas(arestas, qtdArestas);
+   ImprimirVetorArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
-  int *vet = AlgoritmoKruskal(pontos, qtdPontos, arestas, qtdArestas);
+  int *vet = AlgoritmoKruskal(pontos, qtdPontos, arestas, k);
 
   for (int i = 0; i < qtdPontos; i++) {
     printf("%d ", vet[i]);

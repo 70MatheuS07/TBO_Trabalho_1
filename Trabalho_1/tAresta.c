@@ -1,6 +1,7 @@
 #include "tAresta.h"
 #include "UF.h"
 #include "tPonto.h"
+#include "lista.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,6 +9,11 @@ struct Aresta {
   double dist; // Distancia entre os pontos.
   int po;      // Ponto origem.
   int pd;      // Ponto destino.
+};
+
+struct Grupo{
+  int raiz;
+  tLista*lista;
 };
 
 tAresta **CriaVetorArestas(int qtdA) {
@@ -68,30 +74,24 @@ int comparaDistancia(const void *item1, const void *item2) {
   return 0;
 }
 
-int *AlgoritmoKruskal(tPonto **p, int qtdP, tAresta **a, int qtdA) {
-  tAresta **result = malloc(sizeof(tAresta *) * qtdP - 1);
+int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos) {
+
   int *vet = malloc(sizeof(int) * qtdP);
-  int *qtd = malloc(sizeof(int) * qtdP);
-  UF_init(vet, qtd, qtdP);
-  int num = 0;
-
-  for (int i = 0; i < qtdA && num < qtdP - 1; i++) {
-    int origem = a[i]->po;
-    int destino = a[i]->pd;
-
-    int componente_origem = UF_find(vet, origem);
-    int componente_destino = UF_find(vet, destino);
-
-    if (componente_origem != componente_destino) {
-      UF_union(vet, qtd, componente_origem, componente_destino);
-      result[num] = a[i];
-      num++;
+  UF_init(vet,qtdP);
+  int i = 0;
+  int U_Validos=qtdP-qtdGrupos;
+    while(U_Validos>0){
+      U_Validos-=UF_union(vet, a[i]->po, a[i]->pd);
+      i++;
     }
-  }
-
-  ImprimirVetorArestas(result, qtdP - 1);
-
-  free(qtd);
-
+      
   return vet;
+}
+
+void MontaGrupos(int *vet,tPonto**pontos,int qtdP, int qtdGrupos){
+  tGrupo*grupos=malloc(qtdGrupos * sizeof(tGrupo));
+  int i=0;
+  while(i<qtdP){
+    
+  }
 }

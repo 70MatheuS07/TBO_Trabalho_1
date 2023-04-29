@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void UF_init(int *vet, int *qtd, int size);
+void UF_init(int *vet, int size);
 
 int UF_find(int *vet, int i);
 
-void UF_union(int *vet, int *qtd, int p, int q);
+int UF_union(int *vet, int p, int q);
 
 #endif
