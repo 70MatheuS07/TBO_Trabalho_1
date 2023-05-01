@@ -1,12 +1,14 @@
 #include "Arquivo.h"
-#include "tPonto.h"
 #include "tAresta.h"
+#include "tPonto.h"
+#include "lista.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+
+
   char *arq_entrada = strdup(argv[1]);
   int k = atoi(argv[2]);
   char *arq_saida = strdup(argv[3]);
@@ -14,52 +16,62 @@ int main(int argc, char *argv[])
   int dimensao = RetornaDimensaoPonto(arq_entrada);
   // printf("Dimensao: %d\n", dimensao);
 
-  int qtd_linhas = ContaLinhasArquivoBuffer(arq_entrada);
-  // printf("Quantidade linhas: %d\n", qtd_linhas);
+  int qtdPontos = ContaLinhasArquivoBuffer(arq_entrada);
+  // printf("Quantidade linhas: %d\n", qtdVertices);
 
-  tPonto **pontos = malloc(sizeof(tPonto *) * qtd_linhas);
+  tPonto **pontos = malloc(sizeof(tPonto *) * qtdPontos);
   tPonto *p;
 
   FILE *f = fopen(arq_entrada, "r");
 
   int i = 0;
 
-  while (i < qtd_linhas)
-  {
+  while (i < qtdPontos) {
     p = LehPontoArquivo(f, dimensao);
 
-    if (p == NULL)
-    {
+    if (p == NULL) {
       break;
     }
 
     pontos[i] = p;
 
-    // ImprimePonto(pontos[i], dimensao);
+    //ImprimePonto(pontos[i], dimensao);
 
     i++;
   }
 
-  int qtdArestas = (qtd_linhas * (qtd_linhas - 1)) / 2;
+  OrdenaVetPontos(pontos, qtdPontos);
+
+  //for (int i = 0; i < qtdPontos; i++)
+    //ImprimePonto(pontos[i], dimensao);
+
+  int qtdArestas = (qtdPontos * (qtdPontos - 1)) / 2;
 
   tAresta **arestas = CriaVetorArestas(qtdArestas);
 
-  PreencheVetArestas(arestas, pontos, qtd_linhas, dimensao);
+  PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-   ImprimirVetorArestas(arestas, qtdArestas);
+  //ImprimirVetorArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
-  tAresta **mst = AlgoritmoKruskal(pontos, qtd_linhas, arestas, qtdArestas);
+  int *vet = AlgoritmoKruskal(qtdPontos, arestas, k);
 
-  ImprimirVetorArestas(mst, qtd_linhas - 1);
+  //for (int i = 0; i < qtdPontos; i++) {
+  //  printf("%d ", vet[i]);
+  //}
+
+  // ImprimirVetorArestas(mst, qtdPontos - 1);
+  FILE*fp=fopen(arq_saida, "w");
+  tLista**grupos=MontaGrupos(vet,pontos,qtdPontos);
+  ImprimeGrupos(grupos,qtdPontos, fp);
 
   fclose(f);
+  fclose(fp);
   free(arq_entrada);
   free(arq_saida);
-  free(mst);
-
-  LiberaVetPontos(pontos, qtd_linhas);
+  free(vet);
+  LiberaGrupos(grupos, qtdPontos);
+  LiberaVetPontos(pontos, qtdPontos);
   LiberaVetArestas(arestas, qtdArestas);
-
   return 0;
 }

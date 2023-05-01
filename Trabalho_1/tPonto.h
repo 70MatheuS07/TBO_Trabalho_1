@@ -11,7 +11,7 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao);
 
 void ImprimePonto(tPonto *p, int dimensao);
 
-void ImprimeIDPonto(tPonto *p);
+void ImprimeIDPonto(tPonto *p, FILE*fp);
 
 double CalculaDistPontos(tPonto *p1, tPonto *p2, int dimensao);
 
@@ -22,5 +22,11 @@ void LiberaVetPontos(tPonto **p, int qtdP);
 void LiberaPonto(tPonto *p);
 
 char *RetornaNomePonto(tPonto *p);
+
+void OrdenaVetPontos(tPonto **p, int qtdP);
+
+int ComparaNomes(const void *item1, const void *item2);
+
+char* GetId (tPonto*ponto);
 
 #endif

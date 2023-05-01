@@ -1,13 +1,15 @@
 #ifndef TARESTA_H
 #define TARESTA_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "tAresta.h"
+#include "UF.h"
 #include "tPonto.h"
+#include "lista.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct Aresta tAresta;
-
 tAresta **CriaVetorArestas(int qtdA);
 
 tAresta *CriaAresta();
@@ -22,10 +24,15 @@ int comparaDistancia(const void *item1, const void *item2);
 
 void LiberaVetArestas(tAresta **VetA, int qtdA);
 
-tAresta **AlgoritmoKruskal(tPonto **p,int qtdV, tAresta **a, int qtdA);
+int *AlgoritmoKruskal( int qtdP, tAresta **a, int qtdGrupos);
 
-void PreencheVetor(int *vet, int qtdV);
+tLista** MontaGrupos(int *vet,tPonto**pontos,int qtdP);
 
-void ConfereLigacoes(int *vet, int qtdV, int po, int pd);
+void ImprimeGrupos(tLista**grupos, int qtdP, FILE*fp);
 
+void OrdenaGrupos(tLista**grupos, int qtdP);
+
+int ComparaGrupos(const void *item1, const void *item2);
+
+void LiberaGrupos(tLista **grupos, int qtdp);
 #endif

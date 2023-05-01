@@ -1,8 +1,0 @@
----------------------------------ALOCAÇÃO DE MEMÓRIA-------------------------------------
-Estava pensando qual será o tamanho do vetor inicial, colocar 10000 e depois ajeitar?
-Ou colocar menor e se precisar dobra?
-Talvez ler o arquivo de entrada pra saber a quantidade de linhas? (CARO EU ACHO -> tamanho)
-
----------------------------------DISTÂNCIA ENTRE PONTOS (ARESTA)-------------------------------------
-Fazer um vetor de arestas, melhor para ordenar com qsort.
-Vetor de arestas tem q ter o int index do ponto no vetor de pontos (origem e destino) + double dist.
