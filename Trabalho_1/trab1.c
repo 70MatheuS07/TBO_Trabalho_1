@@ -1,6 +1,7 @@
 #include "Arquivo.h"
 #include "tAresta.h"
 #include "tPonto.h"
+#include "lista.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,15 +33,15 @@ int main(int argc, char *argv[]) {
 
     pontos[i] = p;
 
-    ImprimePonto(pontos[i], dimensao);
+    //ImprimePonto(pontos[i], dimensao);
 
     i++;
   }
 
   OrdenaVetPontos(pontos, qtdPontos);
 
-  for (int i = 0; i < qtdPontos; i++)
-    ImprimePonto(pontos[i], dimensao);
+  //for (int i = 0; i < qtdPontos; i++)
+    //ImprimePonto(pontos[i], dimensao);
 
   int qtdArestas = (qtdPontos * (qtdPontos - 1)) / 2;
 
@@ -48,16 +49,18 @@ int main(int argc, char *argv[]) {
 
   PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-   ImprimirVetorArestas(arestas, qtdArestas);
+  //ImprimirVetorArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
-  int *vet = AlgoritmoKruskal(pontos, qtdPontos, arestas, k);
+  int *vet = AlgoritmoKruskal(qtdPontos, arestas, k);
 
-  for (int i = 0; i < qtdPontos; i++) {
-    printf("%d ", vet[i]);
-  }
+  //for (int i = 0; i < qtdPontos; i++) {
+  //  printf("%d ", vet[i]);
+  //}
 
   // ImprimirVetorArestas(mst, qtdPontos - 1);
+  tLista**grupos=MontaGrupos(vet,pontos,qtdPontos);
+  ImprimeGrupos(grupos,qtdPontos);
 
   fclose(f);
   free(arq_entrada);
@@ -66,6 +69,5 @@ int main(int argc, char *argv[]) {
 
   LiberaVetPontos(pontos, qtdPontos);
   LiberaVetArestas(arestas, qtdArestas);
-
   return 0;
 }

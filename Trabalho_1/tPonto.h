@@ -27,4 +27,6 @@ void OrdenaVetPontos(tPonto **p, int qtdP);
 
 int ComparaNomes(const void *item1, const void *item2);
 
+char* GetId (tPonto*ponto);
+
 #endif

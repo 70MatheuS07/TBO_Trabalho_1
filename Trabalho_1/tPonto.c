@@ -41,7 +41,7 @@ void ImprimePonto(tPonto *p, int dimensao) {
   printf("\n");
 }
 
-void ImprimeIDPonto(tPonto *p) { printf("%s ", p->id); }
+void ImprimeIDPonto(tPonto *p) { printf("%s", p->id); }
 
 double CalculaDistPontos(tPonto *p1, tPonto *p2, int dimensao) {
   double dist = 0;
@@ -78,4 +78,8 @@ int ComparaNomes(const void *item1, const void *item2) {
   const tPonto *A2 = *(const tPonto **)item2;
 
   return strcmp(A1->id, A2->id);
+}
+
+char* GetId (tPonto*ponto){
+  return ponto->id;
 }

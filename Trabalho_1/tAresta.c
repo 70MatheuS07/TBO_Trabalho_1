@@ -1,36 +1,35 @@
 #include "tAresta.h"
-#include "UF.h"
-#include "tPonto.h"
-#include "lista.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Aresta {
+struct Aresta
+{
   double dist; // Distancia entre os pontos.
   int po;      // Ponto origem.
   int pd;      // Ponto destino.
 };
 
-struct Grupo{
-  int raiz;
-  tLista*lista;
-};
-
-tAresta **CriaVetorArestas(int qtdA) {
+tAresta **CriaVetorArestas(int qtdA)
+{
   tAresta **vet = malloc(sizeof(tAresta *) * qtdA);
   return vet;
 }
 
-tAresta *CriaAresta() {
+tAresta *CriaAresta()
+{
   tAresta *a;
   a = (tAresta *)malloc(sizeof(tAresta));
   return a;
 }
 
-void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim) {
+void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
+{
   int k = 0;
-  for (int i = 0; i < qtdP; i++) {
-    for (int j = i + 1; j < qtdP; j++, k++) {
+  for (int i = 0; i < qtdP; i++)
+  {
+    for (int j = i + 1; j < qtdP; j++, k++)
+    {
       VetA[k] = CriaAresta();
       VetA[k]->po = i;
       VetA[k]->pd = j;
@@ -41,8 +40,10 @@ void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim) {
 }
 
 // Funcao para testar o vetor de arestas, retirar depois
-void ImprimirVetorArestas(tAresta **VetA, int qtdA) {
-  for (int i = 0; i < qtdA; i++) {
+void ImprimirVetorArestas(tAresta **VetA, int qtdA)
+{
+  for (int i = 0; i < qtdA; i++)
+  {
     printf("%d ", (VetA[i]->po));
     printf("%d ", (VetA[i]->pd));
     printf("%.14lf", VetA[i]->dist);
@@ -50,18 +51,22 @@ void ImprimirVetorArestas(tAresta **VetA, int qtdA) {
   }
 }
 
-void LiberaVetArestas(tAresta **VetA, int qtdA) {
-  for (int i = 0; i < qtdA; i++) {
+void LiberaVetArestas(tAresta **VetA, int qtdA)
+{
+  for (int i = 0; i < qtdA; i++)
+  {
     free(VetA[i]);
   }
   free(VetA);
 }
 
-void OrdenaVetArestas(tAresta **VetA, int qtdA) {
+void OrdenaVetArestas(tAresta **VetA, int qtdA)
+{
   qsort(VetA, qtdA, sizeof(tAresta *), comparaDistancia);
 }
 
-int comparaDistancia(const void *item1, const void *item2) {
+int comparaDistancia(const void *item1, const void *item2)
+{
   const tAresta *A1 = *(const tAresta **)item1;
   const tAresta *A2 = *(const tAresta **)item2;
 
@@ -74,24 +79,75 @@ int comparaDistancia(const void *item1, const void *item2) {
   return 0;
 }
 
-int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos) {
+int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos)
+{
 
   int *vet = malloc(sizeof(int) * qtdP);
-  UF_init(vet,qtdP);
+  UF_init(vet, qtdP);
   int i = 0;
-  int U_Validos=qtdP-qtdGrupos;
-    while(U_Validos>0){
-      U_Validos-=UF_union(vet, a[i]->po, a[i]->pd);
-      i++;
-    }
-      
+  int U_Validos = qtdP - qtdGrupos;
+  while (U_Validos > 0)
+  {
+    U_Validos -= UF_union(vet, a[i]->po, a[i]->pd);
+    i++;
+  }
+
   return vet;
 }
 
-void MontaGrupos(int *vet,tPonto**pontos,int qtdP, int qtdGrupos){
-  tGrupo*grupos=malloc(qtdGrupos * sizeof(tGrupo));
-  int i=0;
-  while(i<qtdP){
-    
+tLista **MontaGrupos(int *vet, tPonto **pontos, int qtdP)
+{
+  tLista **grupos = malloc(qtdP * sizeof(tLista *));
+  for (int i = 0; i < qtdP; i++)
+  {
+    grupos[i] = CriaLista();
+  }
+
+  int i = qtdP - 1;
+  int pos = 0;
+  while (i >= 0)
+  {
+    pos = UF_find(vet, i);
+    grupos[pos] = InsereNaLista(pontos[i], grupos[pos]);
+    i--;
+  }
+  OrdenaGrupos(grupos, qtdP);
+  return grupos;
+}
+
+void ImprimeGrupos(tLista **grupos, int qtdP)
+{
+  for (int i = 0; i < qtdP; i++)
+  {
+    ImprimeListaPontos(grupos[i]);
+    if (grupos[i] != NULL)
+    {
+      printf("\n");
+    }
+  }
+}
+
+void OrdenaGrupos(tLista **grupos, int qtdP)
+{
+  qsort(grupos, qtdP, sizeof(tLista *), ComparaGrupos);
+}
+
+
+int ComparaGrupos(const void *item1, const void *item2)
+{
+  const tLista *A1 = *(const tLista **)item1;
+  const tLista *A2 = *(const tLista **)item2;
+
+  if (A1 == NULL)
+  {
+    return 1;
+  }
+  else if (A2 == NULL)
+  {
+    return -1;
+  }
+  else
+  {
+    return strcmp(GetId(RetornaPrimeiroPonto(A1)), GetId(RetornaPrimeiroPonto(A2)));
   }
 }

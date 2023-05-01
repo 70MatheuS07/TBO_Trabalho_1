@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lista.h"
-#include "tPonto.h"
 
 
 
@@ -23,44 +22,30 @@ tLista *InsereNaLista(tPonto*ponto, tLista *lista)
     nova->prox = lista;
     return nova;
 }
-tLista *RetiraDaLista(tPonto*ponto, tLista *lista)
-{
-    tLista *p = lista;
-    tLista *ant = NULL;
 
-    while (p != NULL && p->ponto!=ponto)
-    {
-        ant = p;
-        p = p->prox;
-    }
-    if (p == NULL)
-    {
-        return lista;
-    }
 
-    if (lista == p)
-    {
-        lista = p->prox;
-        LiberaLista(p);
-        return lista;
-    }
-    ant->prox = p->prox;
-    LiberaLista(p);
-    return lista;
-}
 void LiberaLista(tLista *lista)
-{
-    free(lista);
-    lista=NULL;
-}
-
-void LiberaRestoLista(tLista *lista)
 {
     tLista *p = lista;
     while (p != NULL)
     {
-        liberalista(p);
+        free(p);
         p=p->prox;
     }
     free(lista);
+}
+
+void ImprimeListaPontos(tLista*lista){
+    tLista*p=lista;
+    while(p!=NULL){
+        ImprimeIDPonto(p->ponto);
+        if(p->prox!=NULL){
+            printf(",");
+        }
+        p=p->prox;
+    }
+}
+
+tPonto* RetornaPrimeiroPonto(const tLista*lista){
+    return lista->ponto;
 }
