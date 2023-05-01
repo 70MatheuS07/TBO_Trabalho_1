@@ -28,9 +28,11 @@ int *AlgoritmoKruskal( int qtdP, tAresta **a, int qtdGrupos);
 
 tLista** MontaGrupos(int *vet,tPonto**pontos,int qtdP);
 
-void ImprimeGrupos(tLista**grupos, int qtdP);
+void ImprimeGrupos(tLista**grupos, int qtdP, FILE*fp);
 
 void OrdenaGrupos(tLista**grupos, int qtdP);
 
 int ComparaGrupos(const void *item1, const void *item2);
+
+void LiberaGrupos(tLista **grupos, int qtdp);
 #endif

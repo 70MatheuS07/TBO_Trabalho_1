@@ -9,7 +9,7 @@ tLista *InsereNaLista(tPonto*ponto, tLista *lista);
 
 void LiberaLista(tLista *lista);
 
-void ImprimeListaPontos(tLista*lista);
+void ImprimeListaPontos(tLista*lista, FILE*fp);
 
 tPonto* RetornaPrimeiroPonto(const tLista*lista);
 

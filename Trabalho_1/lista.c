@@ -27,20 +27,21 @@ tLista *InsereNaLista(tPonto*ponto, tLista *lista)
 void LiberaLista(tLista *lista)
 {
     tLista *p = lista;
+    tLista*aux;
     while (p != NULL)
     {
+        aux=p->prox;
         free(p);
-        p=p->prox;
+        p=aux;
     }
-    free(lista);
 }
 
-void ImprimeListaPontos(tLista*lista){
+void ImprimeListaPontos(tLista*lista, FILE*fp){
     tLista*p=lista;
     while(p!=NULL){
-        ImprimeIDPonto(p->ponto);
+        ImprimeIDPonto(p->ponto, fp);
         if(p->prox!=NULL){
-            printf(",");
+            fprintf(fp,",");
         }
         p=p->prox;
     }

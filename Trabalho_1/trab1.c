@@ -7,6 +7,8 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
+
+
   char *arq_entrada = strdup(argv[1]);
   int k = atoi(argv[2]);
   char *arq_saida = strdup(argv[3]);
@@ -59,14 +61,16 @@ int main(int argc, char *argv[]) {
   //}
 
   // ImprimirVetorArestas(mst, qtdPontos - 1);
+  FILE*fp=fopen(arq_saida, "w");
   tLista**grupos=MontaGrupos(vet,pontos,qtdPontos);
-  ImprimeGrupos(grupos,qtdPontos);
+  ImprimeGrupos(grupos,qtdPontos, fp);
 
   fclose(f);
+  fclose(fp);
   free(arq_entrada);
   free(arq_saida);
   free(vet);
-
+  LiberaGrupos(grupos, qtdPontos);
   LiberaVetPontos(pontos, qtdPontos);
   LiberaVetArestas(arestas, qtdArestas);
   return 0;

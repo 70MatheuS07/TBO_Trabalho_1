@@ -115,14 +115,14 @@ tLista **MontaGrupos(int *vet, tPonto **pontos, int qtdP)
   return grupos;
 }
 
-void ImprimeGrupos(tLista **grupos, int qtdP)
+void ImprimeGrupos(tLista **grupos, int qtdP, FILE*fp)
 {
   for (int i = 0; i < qtdP; i++)
   {
-    ImprimeListaPontos(grupos[i]);
+    ImprimeListaPontos(grupos[i],fp);
     if (grupos[i] != NULL)
     {
-      printf("\n");
+      fprintf(fp,"\n");
     }
   }
 }
@@ -150,4 +150,11 @@ int ComparaGrupos(const void *item1, const void *item2)
   {
     return strcmp(GetId(RetornaPrimeiroPonto(A1)), GetId(RetornaPrimeiroPonto(A2)));
   }
+}
+
+void LiberaGrupos(tLista **grupos, int qtdp){
+  for(int i = 0; i < qtdp; i++){
+    LiberaLista(grupos[i]);
+  }
+  free(grupos);
 }

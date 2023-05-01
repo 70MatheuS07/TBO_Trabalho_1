@@ -41,7 +41,7 @@ void ImprimePonto(tPonto *p, int dimensao) {
   printf("\n");
 }
 
-void ImprimeIDPonto(tPonto *p) { printf("%s", p->id); }
+void ImprimeIDPonto(tPonto *p, FILE*fp) { fprintf(fp,"%s", p->id); }
 
 double CalculaDistPontos(tPonto *p1, tPonto *p2, int dimensao) {
   double dist = 0;
