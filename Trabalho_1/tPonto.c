@@ -31,15 +31,6 @@ tPonto *LehPontoArquivo(FILE *f, int dimensao) {
   return p;
 }
 
-void ImprimePonto(tPonto *p, int dimensao) {
-  printf("%s", p->id);
-
-  for (int i = 0; i < dimensao; i++) {
-    printf(",%.14lf", p->m[i]);
-  }
-
-  printf("\n");
-}
 
 void ImprimeIDPonto(tPonto *p, FILE*fp) { fprintf(fp,"%s", p->id); }
 
@@ -67,7 +58,7 @@ void LiberaPonto(tPonto *p) {
   free(p);
 }
 
-char *RetornaNomePonto(tPonto *p) { return p->id; }
+
 
 void OrdenaVetPontos(tPonto **p, int qtdP) {
   qsort(p, qtdP, sizeof(tPonto *), ComparaNomes);
