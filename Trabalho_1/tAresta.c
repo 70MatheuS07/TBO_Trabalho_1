@@ -39,17 +39,6 @@ void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
   }
 }
 
-// Funcao para testar o vetor de arestas, retirar depois
-void ImprimirVetorArestas(tAresta **VetA, int qtdA)
-{
-  for (int i = 0; i < qtdA; i++)
-  {
-    printf("%d ", (VetA[i]->po));
-    printf("%d ", (VetA[i]->pd));
-    printf("%.14lf", VetA[i]->dist);
-    printf("\n");
-  }
-}
 
 void LiberaVetArestas(tAresta **VetA, int qtdA)
 {
