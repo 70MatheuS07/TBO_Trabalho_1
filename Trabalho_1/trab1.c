@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   char *arq_entrada = strdup(argv[1]);
   int k = atoi(argv[2]);
@@ -24,45 +24,43 @@ int main(int argc, char *argv[]) {
 
   int i = 0;
 
-  while (i < qtdPontos) {
+  while (i < qtdPontos)
+  {
     p = LehPontoArquivo(f, dimensao);
 
-    if (p == NULL) {
+    if (p == NULL)
+    {
       break;
     }
 
     pontos[i] = p;
-
 
     i++;
   }
 
   OrdenaVetPontos(pontos, qtdPontos);
 
-
   int qtdArestas = (qtdPontos * (qtdPontos - 1)) / 2;
 
   tAresta **arestas = CriaVetorArestas(qtdArestas);
-
-  PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
+  char **VetIDs;
+  VetIDs = PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
-
 
   // Algoritmo de agrupamento
   int *vet = AlgoritmoKruskal(qtdPontos, arestas, k);
   LiberaVetArestas(arestas, qtdArestas);
 
- 
-  FILE*fp=fopen(arq_saida, "w");
-  tLista**grupos=MontaGrupos(vet,pontos,qtdPontos);
-  ImprimeGrupos(grupos,qtdPontos, fp);
+  FILE *fp = fopen(arq_saida, "w");
+  tLista **grupos = MontaGrupos(vet, VetIDs, qtdPontos);
+  ImprimeGrupos(grupos, qtdPontos, fp);
 
   fclose(f);
   fclose(fp);
   free(arq_entrada);
   free(arq_saida);
   free(vet);
+  free(VetIDs);
   LiberaGrupos(grupos, qtdPontos);
-  LiberaVetPontos(pontos, qtdPontos);
   return 0;
 }

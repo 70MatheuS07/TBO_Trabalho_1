@@ -22,7 +22,7 @@ tLista *CriaLista();
  * @param lista 
  * @return tLista* 
  */
-tLista *InsereNaLista(tPonto*ponto, tLista *lista);
+tLista *InsereNaLista(char*PontoID, tLista *lista);
 
 /**
  * @brief Libera toda a lista passada por parâmetro
@@ -38,12 +38,12 @@ void LiberaLista(tLista *lista);
  */
 void ImprimeListaPontos(tLista*lista, FILE*fp);
 /**
- * @brief Retorna o primeiro ponto da lista passada, essa funcao sera utilizada para ordenar o vetor de listas
+ * @brief Retorna o ID do primeiro ponto da lista passada, essa funcao sera utilizada para ordenar o vetor de listas
  * que representa os grupos
  * 
  * @param lista 
  * @return tPonto* - Primeiro ponto da lista 
  */
-tPonto* RetornaPrimeiroPonto(const tLista*lista);
+char* RetornaPrimeiroPonto(const tLista*lista);
 
 #endif
