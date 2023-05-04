@@ -17,21 +17,12 @@
 typedef struct Aresta tAresta;
 
 /**
- * @brief Cria-se um vetor de arestas, alocando um ponteiro duplo para aresta com o tamanho(numero de vertices-1),
- * que é exatamente o número de arestas
+ * @brief Cria-se um vetor de arestas, alocando um vetor dinâmico para aresta com o tamanho(numero de vertices-1),
  * 
  * @param qtdA quantidade de arestas 
  * @return tAresta** 
  */
-tAresta **CriaVetorArestas(int qtdA);
-
-/**
- * @brief Aloca-se uma aresta para inserir no vetor
- * 
- * @return tAresta* 
- */
-tAresta *CriaAresta();
-
+tAresta *CriaVetorArestas(int qtdA);
 
 /**
  * @brief Funcao que preenche o vetor de arestas com todas as combinacoes de dois pontos possiveis e suas respectivas distancias
@@ -42,7 +33,7 @@ tAresta *CriaAresta();
  * @param dim dimensão dos pontos
  * @return char** - Vetor com os IDs dos pontos
  */
-char** PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdV, int dim);
+char** PreencheVetArestas(tAresta *VetA, tPonto **VetP, int qtdV, int dim);
 
 /**
  * @brief Ordena o vetor de arestas com qsort
@@ -50,7 +41,7 @@ char** PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdV, int dim);
  * @param VetA Vetor de arestas
  * @param qtdA quantidade de arestas
  */
-void OrdenaVetArestas(tAresta **VetA, int qtdA);
+void OrdenaVetArestas(tAresta *VetA, int qtdA);
 
 
 /**
@@ -68,7 +59,7 @@ int comparaDistancia(const void *item1, const void *item2);
  * @param VetA Vetor de arestas
  * @param qtdA quabntidade de arestas
  */
-void LiberaVetArestas(tAresta **VetA, int qtdA);
+void LiberaVetArestas(tAresta *VetA);
 
 /**
  * @brief Executa o algoritimo de Kruskal com quick union em um vetor de inteiros representando os pontos 
@@ -78,7 +69,7 @@ void LiberaVetArestas(tAresta **VetA, int qtdA);
  * @param qtdGrupos 
  * @return int* - vetor de inteiros pós quick union
  */
-int *AlgoritmoKruskal( int qtdP, tAresta **a, int qtdGrupos);
+int *AlgoritmoKruskal( int qtdP, tAresta *a, int qtdGrupos);
 
 /**
  * @brief Monta os grupos, que sao representados por listas, a partir do vetor de inteiros resultante
