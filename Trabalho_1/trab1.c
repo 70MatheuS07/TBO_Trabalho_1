@@ -42,14 +42,14 @@ int main(int argc, char *argv[])
 
   int qtdArestas = (qtdPontos * (qtdPontos - 1)) / 2;
 
-  tAresta **arestas = CriaVetorArestas(qtdArestas);
+  tAresta *arestas = CriaVetorArestas(qtdArestas);
   char **VetIDs;
   VetIDs = PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
   OrdenaVetArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
   int *vet = AlgoritmoKruskal(qtdPontos, arestas, k);
-  LiberaVetArestas(arestas, qtdArestas);
+  LiberaVetArestas(arestas);
 
   FILE *fp = fopen(arq_saida, "w");
   tLista **grupos = MontaGrupos(vet, VetIDs, qtdPontos);

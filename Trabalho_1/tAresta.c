@@ -10,20 +10,14 @@ struct Aresta
   int pd;      // Ponto destino.
 };
 
-tAresta **CriaVetorArestas(int qtdA)
+tAresta *CriaVetorArestas(int qtdA)
 {
-  tAresta **vet = malloc(sizeof(tAresta *) * qtdA);
+  tAresta *vet = malloc(sizeof(tAresta) * qtdA);
   return vet;
 }
 
-tAresta *CriaAresta()
-{
-  tAresta *a;
-  a = (tAresta *)malloc(sizeof(tAresta));
-  return a;
-}
 
-char **PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
+char **PreencheVetArestas(tAresta *VetA, tPonto **VetP, int qtdP, int dim)
 {
   char **IDPontos = malloc(sizeof(char *) * qtdP);
   int k = 0;
@@ -31,11 +25,10 @@ char **PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
   {
     for (int j = i + 1; j < qtdP; j++, k++)
     {
-      VetA[k] = CriaAresta();
-      VetA[k]->po = i;
-      VetA[k]->pd = j;
-      VetA[k]->dist =
-          CalculaDistPontos(VetP[VetA[k]->po], VetP[VetA[k]->pd], dim);
+      VetA[k].po = i;
+      VetA[k].pd = j;
+      VetA[k].dist =
+          CalculaDistPontos(VetP[VetA[k].po], VetP[VetA[k].pd], dim);
     }
     IDPontos[i] = malloc(sizeof(char) * 201);
     strcpy(IDPontos[i], GetId(VetP[i]));
@@ -45,24 +38,20 @@ char **PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
   return IDPontos;
 }
 
-void LiberaVetArestas(tAresta **VetA, int qtdA)
+void LiberaVetArestas(tAresta *VetA)
 {
-  for (int i = 0; i < qtdA; i++)
-  {
-    free(VetA[i]);
-  }
   free(VetA);
 }
 
-void OrdenaVetArestas(tAresta **VetA, int qtdA)
+void OrdenaVetArestas(tAresta *VetA, int qtdA)
 {
-  qsort(VetA, qtdA, sizeof(tAresta *), comparaDistancia);
+  qsort(VetA, qtdA, sizeof(tAresta), comparaDistancia);
 }
 
-int comparaDistancia(const void *item1, const void *item2)
+int comparaDistancia(const void*item1, const void *item2)
 {
-  const tAresta *A1 = *(const tAresta **)item1;
-  const tAresta *A2 = *(const tAresta **)item2;
+  const tAresta *A1 = (const tAresta*)item1;
+  const tAresta *A2 = (const tAresta*)item2;
 
   if (A1->dist > A2->dist)
     return 1;
@@ -73,7 +62,7 @@ int comparaDistancia(const void *item1, const void *item2)
   return 0;
 }
 
-int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos)
+int *AlgoritmoKruskal(int qtdP, tAresta *a, int qtdGrupos)
 {
 
   int *vet = malloc(sizeof(int) * qtdP);
@@ -82,7 +71,7 @@ int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos)
   int U_Validos = qtdP - qtdGrupos;
   while (U_Validos > 0)
   {
-    U_Validos -= UF_union(vet, a[i]->po, a[i]->pd);
+    U_Validos -= UF_union(vet, a[i].po, a[i].pd);
     i++;
   }
 
