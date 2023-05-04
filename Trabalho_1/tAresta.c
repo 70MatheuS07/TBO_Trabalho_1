@@ -32,8 +32,10 @@ char **PreencheVetArestas(tAresta *VetA, tPonto **VetP, int qtdP, int dim)
     }
     IDPontos[i] = malloc(sizeof(char) * 201);
     strcpy(IDPontos[i], GetId(VetP[i]));
+    
     LiberaPonto(VetP[i]);
   }
+
   free(VetP);
   return IDPontos;
 }
