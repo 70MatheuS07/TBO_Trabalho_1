@@ -23,8 +23,9 @@ tAresta *CriaAresta()
   return a;
 }
 
-void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
+char **PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
 {
+  char **IDPontos = malloc(sizeof(char *) * qtdP);
   int k = 0;
   for (int i = 0; i < qtdP; i++)
   {
@@ -36,9 +37,13 @@ void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdP, int dim)
       VetA[k]->dist =
           CalculaDistPontos(VetP[VetA[k]->po], VetP[VetA[k]->pd], dim);
     }
+    IDPontos[i] = malloc(sizeof(char) * 201);
+    strcpy(IDPontos[i], GetId(VetP[i]));
+    LiberaPonto(VetP[i]);
   }
+  free(VetP);
+  return IDPontos;
 }
-
 
 void LiberaVetArestas(tAresta **VetA, int qtdA)
 {
@@ -84,7 +89,7 @@ int *AlgoritmoKruskal(int qtdP, tAresta **a, int qtdGrupos)
   return vet;
 }
 
-tLista **MontaGrupos(int *vet, tPonto **pontos, int qtdP)
+tLista **MontaGrupos(int *vet, char **IDpontos, int qtdP)
 {
   tLista **grupos = malloc(qtdP * sizeof(tLista *));
   for (int i = 0; i < qtdP; i++)
@@ -97,21 +102,21 @@ tLista **MontaGrupos(int *vet, tPonto **pontos, int qtdP)
   while (i >= 0)
   {
     pos = UF_find(vet, i);
-    grupos[pos] = InsereNaLista(pontos[i], grupos[pos]);
+    grupos[pos] = InsereNaLista(IDpontos[i], grupos[pos]);
     i--;
   }
   OrdenaGrupos(grupos, qtdP);
   return grupos;
 }
 
-void ImprimeGrupos(tLista **grupos, int qtdP, FILE*fp)
+void ImprimeGrupos(tLista **grupos, int qtdP, FILE *fp)
 {
   for (int i = 0; i < qtdP; i++)
   {
-    ImprimeListaPontos(grupos[i],fp);
+    ImprimeListaPontos(grupos[i], fp);
     if (grupos[i] != NULL)
     {
-      fprintf(fp,"\n");
+      fprintf(fp, "\n");
     }
   }
 }
@@ -120,7 +125,6 @@ void OrdenaGrupos(tLista **grupos, int qtdP)
 {
   qsort(grupos, qtdP, sizeof(tLista *), ComparaGrupos);
 }
-
 
 int ComparaGrupos(const void *item1, const void *item2)
 {
@@ -137,12 +141,14 @@ int ComparaGrupos(const void *item1, const void *item2)
   }
   else
   {
-    return strcmp(GetId(RetornaPrimeiroPonto(A1)), GetId(RetornaPrimeiroPonto(A2)));
+    return strcmp(RetornaPrimeiroPonto(A1), RetornaPrimeiroPonto(A2));
   }
 }
 
-void LiberaGrupos(tLista **grupos, int qtdp){
-  for(int i = 0; i < qtdp; i++){
+void LiberaGrupos(tLista **grupos, int qtdp)
+{
+  for (int i = 0; i < qtdp; i++)
+  {
     LiberaLista(grupos[i]);
   }
   free(grupos);

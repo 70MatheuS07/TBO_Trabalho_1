@@ -35,15 +35,14 @@ tAresta *CriaAresta();
 
 /**
  * @brief Funcao que preenche o vetor de arestas com todas as combinacoes de dois pontos possiveis e suas respectivas distancias
- * 
+ * Retorna um vetor com os IDs dos pontos, visando diminuir gastos de memoria posteriormente
  * @param VetA Vetor de arestas
  * @param VetP vetor de pontos
  * @param qtdV quantidade de pontos
  * @param dim dimensão dos pontos
+ * @return char** - Vetor com os IDs dos pontos
  */
-void PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdV, int dim);
-
-
+char** PreencheVetArestas(tAresta **VetA, tPonto **VetP, int qtdV, int dim);
 
 /**
  * @brief Ordena o vetor de arestas com qsort
@@ -86,11 +85,11 @@ int *AlgoritmoKruskal( int qtdP, tAresta **a, int qtdGrupos);
  *  do quick union da funcao AlgoritmoKruskal
  * 
  * @param vet vetor de inteiros
- * @param pontos Vetor de pontos
+ * @param IDpontos Vetor de pontos
  * @param qtdP quantidade de pontos
  * @return tLista** Grupos formados
  */
-tLista** MontaGrupos(int *vet,tPonto**pontos,int qtdP);
+tLista **MontaGrupos(int *vet, char**IDpontos, int qtdP);
 
 /**
  * @brief Imprime os grupos de maneira ordenanda

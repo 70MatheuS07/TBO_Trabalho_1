@@ -3,11 +3,9 @@
 #include <string.h>
 #include "lista.h"
 
-
-
 struct lista
 {
-    tPonto*ponto;
+    char *PontoID;
     tLista *prox;
 };
 
@@ -15,38 +13,42 @@ tLista *CriaLista()
 {
     return NULL;
 }
-tLista *InsereNaLista(tPonto*ponto, tLista *lista)
+tLista *InsereNaLista(char *PontoID, tLista *lista)
 {
     tLista *nova = malloc(sizeof(tLista));
-    nova->ponto = ponto;
+    nova->PontoID = PontoID;
     nova->prox = lista;
     return nova;
 }
 
-
 void LiberaLista(tLista *lista)
 {
     tLista *p = lista;
-    tLista*aux;
+    tLista *aux;
     while (p != NULL)
     {
-        aux=p->prox;
+        aux = p->prox;
+        free(p->PontoID);
         free(p);
-        p=aux;
+        p = aux;
     }
 }
 
-void ImprimeListaPontos(tLista*lista, FILE*fp){
-    tLista*p=lista;
-    while(p!=NULL){
-        ImprimeIDPonto(p->ponto, fp);
-        if(p->prox!=NULL){
-            fprintf(fp,",");
+void ImprimeListaPontos(tLista *lista, FILE *fp)
+{
+    tLista *p = lista;
+    while (p != NULL)
+    {
+        fprintf(fp, "%s", p->PontoID);
+        if (p->prox != NULL)
+        {
+            fprintf(fp, ",");
         }
-        p=p->prox;
+        p = p->prox;
     }
 }
 
-tPonto* RetornaPrimeiroPonto(const tLista*lista){
-    return lista->ponto;
+char *RetornaPrimeiroPonto(const tLista *lista)
+{
+    return lista->PontoID;
 }
