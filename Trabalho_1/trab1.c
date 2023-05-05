@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main(int argc, char *argv[])
 {
-
   char *arq_entrada = strdup(argv[1]);
   int k = atoi(argv[2]);
 
@@ -44,11 +44,14 @@ int main(int argc, char *argv[])
   int qtdArestas = (qtdPontos * (qtdPontos - 1)) / 2;
 
   tAresta *arestas = CriaVetorArestas(qtdArestas);
+
   char **VetIDs = PreencheVetArestas(arestas, pontos, qtdPontos, dimensao);
+
   OrdenaVetArestas(arestas, qtdArestas);
 
   // Algoritmo de agrupamento
   int *vet = AlgoritmoKruskal(qtdPontos, arestas, k);
+
   LiberaVetArestas(arestas);
 
   char *arq_saida = strdup(argv[3]);
@@ -56,6 +59,7 @@ int main(int argc, char *argv[])
   free(arq_saida);
 
   tLista **grupos = MontaGrupos(vet, VetIDs, qtdPontos);
+
   free(vet);
   free(VetIDs);
 
