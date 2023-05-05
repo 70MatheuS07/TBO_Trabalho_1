@@ -68,12 +68,13 @@ int *AlgoritmoKruskal(int qtdP, tAresta *a, int qtdGrupos)
 {
 
   int *vet = malloc(sizeof(int) * qtdP);
-  UF_init(vet, qtdP);
+  int *size = malloc(sizeof(int) * qtdP);
+  UF_init(vet, qtdP, size);
   int i = 0;
   int U_Validos = qtdP - qtdGrupos;
   while (U_Validos > 0)
   {
-    U_Validos -= UF_union(vet, a[i].po, a[i].pd);
+    U_Validos -= UF_union(vet, a[i].po, a[i].pd, size);
     i++;
   }
 
