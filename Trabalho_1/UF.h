@@ -11,7 +11,7 @@
  * @param vet
  * @param size 
  */
-void UF_init(int *vet, int size, int *sz);
+void UF_init(int *vet, int size);
 
 /**
  * @brief Encontra a raiz do elemento informado
@@ -30,6 +30,6 @@ int UF_find(int *vet, int i);
  * @param q 
  * @return int 
  */
-int UF_union(int *vet, int p, int q, int *size);
+int UF_union(int *vet, int p, int q);
 
 #endif
