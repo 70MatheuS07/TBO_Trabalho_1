@@ -1,25 +1,49 @@
-# 🔍 Assignment 1 - Search and Sorting Techniques (TBO)
+# 🔍 Assignment 1 — Maximum Spacing Clustering (TBO)
 
-This repository contains Assignment 1 for the course **Search and Sorting Techniques (TBO)**, taken during the 1st semester of the **Computer Science** program at the **Federal University of Espírito Santo (UFES)**.
+This repository contains the implementation of **Assignment 1** for the course **Search and Sorting Techniques (TBO)**, part of the Computer Science program at the **Federal University of Espírito Santo (UFES)**.
 
-## 📌 Description
+## 📌 Objective
 
-The goal of this assignment is to implement and analyze classic search and sorting algorithms. The main objective is to deepen the understanding of how these techniques work and evaluate their efficiency through practical application.
+The goal of this project is to implement the **maximum spacing clustering** algorithm using a **Minimum Spanning Tree (MST)**. The approach groups points in a multidimensional space into clusters such that the **minimum distance between points in different clusters is maximized**.
 
-## 🧠 Topics Covered
+## 🧠 Summary of the Method
 
-- Search algorithms (e.g., linear search, binary search)
-- Sorting algorithms (e.g., bubble sort, quicksort, merge sort)
-- Complexity analysis
-- Comparative study between methods
+1. **Input**: A set of points in ℝ<sup>m</sup> and an integer `k`, representing the number of desired clusters.
+2. **Distance Matrix**: Compute the Euclidean distances between all pairs of points.
+3. **Minimum Spanning Tree**: Construct a weighted, undirected, complete graph using these distances, and compute its MST using **Kruskal's algorithm**.
+4. **Clustering**: Remove the `k − 1` most expensive edges from the MST. The resulting `k` connected components are the output clusters.
 
-## 📝 Notes
+## 📂 Input and Output Format
 
-This assignment was developed as part of the course evaluation, under the guidance of [Professor's Name, if you wish to include]. All algorithms were implemented from scratch without using external sorting or search libraries.
+- **Input file**: A plain text file where each line represents a point, formatted as: identifier,coord1,coord2,...,coordN
+
+- **Output file**: Each line contains the identifiers of one cluster, sorted lexicographically. Clusters are also sorted by their first element.
+
+## ⚙️ Implementation Notes
+
+- Language: C
+- MST Algorithm: Kruskal's algorithm with disjoint-set (union-find) data structure
+- Distances sorted using `qsort`
+- Strict memory management verified with `valgrind`
+- Follows the execution standard: `./trab1 input.txt k output.txt`
+
+
+## 📊 Report
+
+The assignment includes a written report analyzing:
+
+- Implementation methodology
+- Algorithmic complexity of each stage
+- Empirical runtime analysis on provided test cases
+- Percentage of time spent on each step: reading data, computing distances, sorting, generating the MST, identifying clusters, writing output
 
 ## 👨‍💻 Author
 
 - **Name**: Matheus de Oliveira Lima
-- **Program**: Computer Science  
-- **Institution**: Federal University of Espírito Santo (UFES)  
-- **Semester**: 2nd semester of 2022
+- **Course**: Computer Science
+- **Institution**: Federal University of Espírito Santo (UFES)
+- **Semester**: 2nd semester, 2022
+
+---
+
+_Project submitted as part of the TBO course requirements. Based on specifications provided by the instructor._
